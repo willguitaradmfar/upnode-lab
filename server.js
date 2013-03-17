@@ -24,23 +24,23 @@ app.post('/file-upload', function(req, res) {
     var tmp_path = req.files.my_file.path;
     console.log(tmp_path);
     // diretorio definitivo
-    var local_path = './public/upload/' + req.files.my_file.name;
-    // enviar arquivo do dir temporario para o definitivo
-    fs.rename(tmp_path, local_path, function(err) {
-        //if (err) throw err;
+    var local_path = './public/upload/' + req.files.my_file.name;
+    // enviar arquivo do dir temporario para o definitivo
+    fs.rename(tmp_path, local_path, function(err) {
+        //if (err) throw err;
         if (err) {
             console.log(JSON.stringify(err));
             res.sendfile(__dirname + '/public/error.html');
             return;
         }
-        // deletar arquivo temporario
-        fs.unlink('./' + tmp_path, function() {
-            if (err) console.log(JSON.stringify(err));
-            //res.send('File uploaded to: ' + local_path + ' - ' + req.files.my_file.size + ' bytes');
-	       res.sendfile(__dirname + '/public/success.html');
-        });
+        // deletar arquivo temporario
+        fs.unlink('./' + tmp_path, function() {
+        if (err) console.log(JSON.stringify(err));
+            //res.send('File uploaded to: ' + local_path + ' - ' + req.files.my_file.size + ' bytes');
+            res.sendfile(__dirname + '/public/success.html');
+        });
         helper.removeAllFiles('./tmp_dir');
-    });
+    });
 });
 
 app.listen(3000);
