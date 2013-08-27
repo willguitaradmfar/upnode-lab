@@ -24,7 +24,7 @@ app.post('/file-upload', function(req, res) {
     var tmp_path = req.files.my_file.path;
     console.log(tmp_path);
     // diretorio definitivo
-    var local_path = './public/upload/' + req.files.my_file.name;
+    var local_path = process.env.PATH_UPLOAD + req.files.my_file.name;
     // enviar arquivo do dir temporario para o definitivo
     fs.rename(tmp_path, local_path, function(err) {
         //if (err) throw err;
@@ -43,5 +43,5 @@ app.post('/file-upload', function(req, res) {
     });
 });
 
-app.listen(3000);
-console.log('Listening on port 3000...');
+app.listen(process.env.PORT);
+console.log('Listening on port '+process.env.PORT+'...');
